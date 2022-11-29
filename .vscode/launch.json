@@ -7,11 +7,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'aoc'",
+            "name": "Debug unit tests in executable 'adventofcode'",
             "cargo": {
-                "args": ["test", "--no-run", "--bin=aoc", "--package=aoc"],
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=adventofcode",
+                    "--package=adventofcode"
+                ],
                 "filter": {
-                    "name": "aoc",
+                    "name": "adventofcode",
                     "kind": "bin"
                 }
             },
@@ -21,11 +26,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'aoc'",
+            "name": "Debug executable 'adventofcode'",
             "cargo": {
-                "args": ["build", "--bin=aoc", "--package=aoc"],
+                "args": [
+                    "build",
+                    "--bin=adventofcode",
+                    "--package=adventofcode"
+                ],
                 "filter": {
-                    "name": "aoc",
+                    "name": "adventofcode",
                     "kind": "bin"
                 }
             },
@@ -35,11 +44,11 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'aoc'",
+            "name": "Debug unit tests in library 'adventofcode'",
             "cargo": {
-                "args": ["test", "--no-run", "--lib", "--package=aoc"],
+                "args": ["test", "--no-run", "--lib", "--package=adventofcode"],
                 "filter": {
-                    "name": "aoc",
+                    "name": "adventofcode",
                     "kind": "lib"
                 }
             },
