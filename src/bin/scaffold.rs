@@ -17,9 +17,9 @@ pub fn part_two(input: &str) -> Option<u32> {
 }
 
 fn main() {
-    let input = &aoc::read_file("inputs", DAY);
-    aoc::solve!(1, part_one, input);
-    aoc::solve!(2, part_two, input);
+    let input = &adventofcode::read_file("inputs", DAY);
+    adventofcode::solve!(1, part_one, input);
+    adventofcode::solve!(2, part_two, input);
 }
 
 #[cfg(test)]
@@ -28,13 +28,13 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let input = aoc::read_file("examples", DAY);
+        let input = adventofcode::read_file("examples", DAY);
         assert_eq!(part_one(&input), None);
     }
 
     #[test]
     fn test_part_two() {
-        let input = aoc::read_file("examples", DAY);
+        let input = adventofcode::read_file("examples", DAY);
         assert_eq!(part_two(&input), None);
     }
 }

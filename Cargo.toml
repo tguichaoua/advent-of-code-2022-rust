@@ -1,10 +1,9 @@
 [package]
-name = "aoc"
+name = "adventofcode"
 version = "0.6.3"
 authors = ["Felix Spöttel <1682504+fspoettel@users.noreply.github.com>"]
 edition = "2021"
-default-run = "aoc"
-
+default-run = "adventofcode"
 publish = false
 
 [dependencies]
