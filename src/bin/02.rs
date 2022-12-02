@@ -20,6 +20,45 @@ pub fn part_one(input: &str) -> Option<u32> {
     Some(score)
 }
 
+pub fn part_one_2(input: &str) -> Option<u32> {
+    let score = input
+        .lines()
+        .map(|line| match line {
+            "A X" => 3 + 1,
+            "A Y" => 6 + 2,
+            "A Z" => 0 + 3,
+            "B X" => 0 + 1,
+            "B Y" => 3 + 2,
+            "B Z" => 6 + 3,
+            "C X" => 6 + 1,
+            "C Y" => 0 + 2,
+            "C Z" => 3 + 3,
+            _ => unreachable!(),
+        })
+        .sum();
+    Some(score)
+}
+
+pub fn part_one_3(input: &str) -> Option<u32> {
+    let score = input
+        .lines()
+        .map(|line| (line.as_bytes()[0] as char, line.as_bytes()[2] as char))
+        .map(|line| match line {
+            ('A', 'X') => 3 + 1,
+            ('A', 'Y') => 6 + 2,
+            ('A', 'Z') => 0 + 3,
+            ('B', 'X') => 0 + 1,
+            ('B', 'Y') => 3 + 2,
+            ('B', 'Z') => 6 + 3,
+            ('C', 'X') => 6 + 1,
+            ('C', 'Y') => 0 + 2,
+            ('C', 'Z') => 3 + 3,
+            _ => unreachable!(),
+        })
+        .sum();
+    Some(score)
+}
+
 pub fn part_two(input: &str) -> Option<u32> {
     let score = input
         .lines()
@@ -86,10 +125,12 @@ pub fn part_two_3(input: &str) -> Option<u32> {
 
 fn main() {
     let input = &adventofcode::read_file("inputs", 2);
-    adventofcode::solve!(1, part_one, input);
-    adventofcode::solve!(2, part_two, input);
-    adventofcode::solve!("2 bis", part_two_2, input);
-    adventofcode::solve!("2 ter", part_two_3, input);
+    // adventofcode::solve!(1, part_one, input);
+    // adventofcode::solve!(1, part_one_2, input);
+    adventofcode::solve!(1, part_one_3, input);
+    // adventofcode::solve!(2, part_two, input);
+    // adventofcode::solve!(2, part_two_2, input);
+    adventofcode::solve!(2, part_two_3, input);
 }
 
 #[cfg(test)]
@@ -100,6 +141,18 @@ mod tests {
     fn test_part_one() {
         let input = adventofcode::read_file("examples", 2);
         assert_eq!(part_one(&input), Some(15));
+    }
+
+    #[test]
+    fn test_part_one_2() {
+        let input = adventofcode::read_file("examples", 2);
+        assert_eq!(part_one_2(&input), Some(15));
+    }
+
+    #[test]
+    fn test_part_one_3() {
+        let input = adventofcode::read_file("examples", 2);
+        assert_eq!(part_one_3(&input), Some(15));
     }
 
     #[test]
