@@ -15,39 +15,29 @@ fn parse_line(line: &str) -> (RangeInclusive<u32>, RangeInclusive<u32>) {
 pub fn part_one(input: &str) -> Option<u32> {
     let overlap_count = input
         .lines()
-        .map(|line| {
+        .filter(|line| {
             let (a, b) = parse_line(line);
-            if (a.contains(b.start()) && a.contains(b.end()))
+            (a.contains(b.start()) && a.contains(b.end()))
                 || (b.contains(a.start()) && b.contains(a.end()))
-            {
-                1
-            } else {
-                0
-            }
         })
-        .sum();
+        .count();
 
-    Some(overlap_count)
+    Some(overlap_count as u32)
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
     let overlap_count = input
         .lines()
-        .map(|line| {
+        .filter(|line| {
             let (a, b) = parse_line(line);
-            if a.contains(b.start())
+            a.contains(b.start())
                 || a.contains(b.end())
                 || b.contains(a.start())
                 || b.contains(a.end())
-            {
-                1
-            } else {
-                0
-            }
         })
-        .sum();
+        .count();
 
-    Some(overlap_count)
+    Some(overlap_count as u32)
 }
 
 fn main() {
