@@ -16,30 +16,6 @@ impl<T: PartialEq> RemoveValue<T> for Vec<T> {
     }
 }
 
-pub trait GetMut<T> {
-    /// Get a mutable reference on two distinct elements.
-    ///
-    /// # Panics
-    ///
-    /// Panics if the two indices are equal.
-    fn get_two_mut(&mut self, a: usize, b: usize) -> (&mut T, &mut T);
-}
-
-impl<T> GetMut<T> for Vec<T> {
-    fn get_two_mut(&mut self, a: usize, b: usize) -> (&mut T, &mut T) {
-        if a == b {
-            panic!("cannot get two mutable reference on the same element");
-        }
-        if a < b {
-            let (part_a, part_b) = self.split_at_mut(a + 1);
-            (&mut part_a[a], &mut part_b[b - a - 1])
-        } else {
-            let (part_a, part_b) = self.split_at_mut(b + 1);
-            (&mut part_b[a - b - 1], &mut part_a[b])
-        }
-    }
-}
-
 pub trait StrExt {
     /// Divide one string slice into two at an index, without doing bounds checking.
     ///

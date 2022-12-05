@@ -1,6 +1,7 @@
+#![feature(get_many_mut)]
+
 use std::str::FromStr;
 
-use adventofcode::helpers::GetMut;
 use itertools::Itertools;
 use tuple::Map;
 
@@ -89,7 +90,7 @@ fn parse_input(input: &str) -> (Vec<Stack>, impl Iterator<Item = Instruction> + 
 pub fn part_one(input: &str) -> Option<String> {
     let (mut stacks, instructions) = parse_input(input);
     for Instruction { amount, from, to } in instructions {
-        let (from, to) = stacks.get_two_mut(from, to);
+        let [from, to] = stacks.get_many_mut([from, to]).unwrap();
         to.add(from.take(amount).rev());
     }
     Some(String::from_iter(
@@ -100,7 +101,7 @@ pub fn part_one(input: &str) -> Option<String> {
 pub fn part_two(input: &str) -> Option<String> {
     let (mut stacks, instructions) = parse_input(input);
     for Instruction { amount, from, to } in instructions {
-        let (from, to) = stacks.get_two_mut(from, to);
+        let [from, to] = stacks.get_many_mut([from, to]).unwrap();
         to.add(from.take(amount));
     }
     Some(String::from_iter(
