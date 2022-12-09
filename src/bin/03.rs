@@ -17,9 +17,9 @@ pub fn part_one(input: &str) -> Option<u32> {
         .lines()
         .map(|line| {
             let item_count = line.len();
-            assert_eq!(item_count % 2, 0);
+            debug_assert_eq!(item_count % 2, 0);
             let (a, b) = line.split_at(item_count / 2);
-            assert_eq!(a.len(), b.len());
+            debug_assert_eq!(a.len(), b.len());
             let a = HashSet::<_>::from_iter(a.as_bytes());
             let b = HashSet::from_iter(b.as_bytes());
 
@@ -37,12 +37,12 @@ pub fn part_one_2(input: &str) -> Option<u32> {
         .lines()
         .map(|line| {
             let item_count = line.len();
-            assert_eq!(item_count % 2, 0);
+            debug_assert_eq!(item_count % 2, 0);
             let mid = item_count / 2;
             // SAFETY: `mid` is on a char boundary : the input only contains
             // 1 byte length character ('a' through 'z' and 'A' through 'Z');
             let (a, b) = unsafe { line.split_at_unchecked(mid) };
-            assert_eq!(a.len(), b.len());
+            debug_assert_eq!(a.len(), b.len());
             let a = HashSet::<_>::from_iter(a.as_bytes());
             let b = HashSet::from_iter(b.as_bytes());
 
@@ -60,12 +60,12 @@ pub fn part_one_3(input: &str) -> Option<u32> {
         .lines()
         .map(|line| {
             let item_count = line.len();
-            assert_eq!(item_count % 2, 0);
+            debug_assert_eq!(item_count % 2, 0);
             let mid = item_count / 2;
             // SAFETY: `mid` is on a char boundary : the input only contains
             // 1 byte length character ('a' through 'z' and 'A' through 'Z');
             let (a, b) = unsafe { line.split_at_unchecked(mid) };
-            assert_eq!(a.len(), b.len());
+            debug_assert_eq!(a.len(), b.len());
             let a = HashSet::<_>::from_iter(a.as_bytes().iter().copied());
             let b = HashSet::from_iter(b.as_bytes().iter().copied());
 
