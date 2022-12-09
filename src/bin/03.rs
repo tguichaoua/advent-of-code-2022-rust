@@ -71,8 +71,8 @@ pub fn part_one_3(input: &str) -> Option<u32> {
             // 1 byte length character ('a' through 'z' and 'A' through 'Z');
             let (a, b) = unsafe { line.split_at_unchecked(mid) };
             debug_assert_eq!(a.len(), b.len());
-            let a = HashSet::<_>::from_iter(a.as_bytes().iter().copied());
-            let b = HashSet::from_iter(b.as_bytes().iter().copied());
+            let a = HashSet::<_>::from_iter(a.bytes());
+            let b = HashSet::from_iter(b.bytes());
 
             let item = a.intersection(&b).exactly_one().unwrap();
 
@@ -133,9 +133,9 @@ pub fn part_two_2(input: &str) -> Option<u32> {
         .lines()
         .tuples()
         .map(|(a, b, c)| {
-            let a = HashSet::<_>::from_iter(a.as_bytes().iter().copied());
-            let b = HashSet::from_iter(b.as_bytes().iter().copied());
-            let c = HashSet::from_iter(c.as_bytes().iter().copied());
+            let a = HashSet::<_>::from_iter(a.bytes());
+            let b = HashSet::from_iter(b.bytes());
+            let c = HashSet::from_iter(c.bytes());
 
             let a_b_common = a.intersection(&b).copied().collect::<HashSet<_>>();
             let common_item = a_b_common.intersection(&c).exactly_one().unwrap();
