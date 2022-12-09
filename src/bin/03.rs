@@ -1,3 +1,5 @@
+#![feature(inline_const)]
+
 use std::collections::HashSet;
 
 use adventofcode::helpers::StrExt;
@@ -5,11 +7,13 @@ use itertools::Itertools;
 
 #[inline]
 fn item_priority(item: u8) -> u32 {
-    match item {
-        x @ b'a'..=b'z' => (x - b'a' + 1) as u32,
-        x @ b'A'..=b'Z' => (x - b'A' + 27) as u32,
-        _ => unreachable!(),
-    }
+    debug_assert!((b'A'..=b'Z').contains(&item) || (b'a'..=b'z').contains(&item));
+    let value = if item < b'a' {
+        item - const { b'A' - 27 }
+    } else {
+        item - const { b'a' - 1 }
+    };
+    value as u32
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
