@@ -21,11 +21,11 @@ struct Monkey {
 }
 
 fn parse_monkeys(input: &str) -> Vec<Monkey> {
-    const STARTING_ITEMS: &'static str = "  Starting items: ";
-    const OPERATION: &'static str = "  Operation: new = old ";
-    const TEST: &'static str = "  Test: divisible by ";
-    const IF_TRUE: &'static str = "    If true: throw to monkey ";
-    const IF_FALSE: &'static str = "    If false: throw to monkey ";
+    const STARTING_ITEMS: &str = "  Starting items: ";
+    const OPERATION: &str = "  Operation: new = old ";
+    const TEST: &str = "  Test: divisible by ";
+    const IF_TRUE: &str = "    If true: throw to monkey ";
+    const IF_FALSE: &str = "    If false: throw to monkey ";
 
     input
         .lines()
