@@ -10,8 +10,17 @@ def run(command):
         sys.exit(1)
 
 
+def get_day():
+    if len(sys.argv) > 1:
+        try:
+            return int(sys.argv[1])
+        except:
+            ...
+    return datetime.datetime.today().day
+
+
 def main():
-    day = datetime.datetime.today().day
+    day = get_day()
     run(f"cargo scaffold {day}")
     run(f"cargo download {day}")
     run("code .")
