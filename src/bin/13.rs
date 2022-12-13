@@ -56,12 +56,10 @@ impl PartialOrd for Item {
 impl Ord for Item {
     fn cmp(&self, other: &Self) -> std::cmp::Ordering {
         fn cmp_list(a: &[Item], b: &[Item]) -> std::cmp::Ordering {
-            if let Some(cmp) = a
-                .iter()
-                .zip(b)
-                .map(|(a, b)| Ord::cmp(a, b))
-                .filter(|cmp| matches!(cmp, std::cmp::Ordering::Less | std::cmp::Ordering::Greater))
-                .next()
+            if let Some(cmp) =
+                a.iter().zip(b).map(|(a, b)| Ord::cmp(a, b)).find(|cmp| {
+                    matches!(cmp, std::cmp::Ordering::Less | std::cmp::Ordering::Greater)
+                })
             {
                 cmp
             } else {

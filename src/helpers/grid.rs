@@ -62,6 +62,9 @@ impl<T> Grid<T> {
         }
     }
 
+    ///
+    /// # Safety
+    /// `x` and `y` must be in bounds of the grid.
     pub unsafe fn get_unchecked(&self, x: usize, y: usize) -> &T {
         self.elements.get_unchecked(flat_index(x, y, self.width))
     }
@@ -76,6 +79,9 @@ impl<T> Grid<T> {
         }
     }
 
+    ///
+    /// # Safety
+    /// `x` and `y` must be in bounds of the grid.
     pub unsafe fn get_unchecked_mut(&mut self, x: usize, y: usize) -> &mut T {
         self.elements
             .get_unchecked_mut(flat_index(x, y, self.width))
