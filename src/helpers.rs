@@ -1,7 +1,6 @@
-/*
- * Use this file if you want to extract helpers from your solutions.
- * Example import from this file: `use aoc::helpers::example_fn;`.
- */
+mod grid;
+
+pub use grid::*;
 
 pub trait RemoveValue<T> {
     /// Removes and returns the first item that is equal to value if any.
