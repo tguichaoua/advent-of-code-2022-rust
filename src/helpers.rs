@@ -1,4 +1,7 @@
 mod grid;
+pub mod parser;
+
+use std::iter::Step;
 
 pub use grid::*;
 
@@ -47,5 +50,29 @@ impl<'a> StrExt for &'a str {
                 self.get_unchecked(mid..self.len()),
             )
         }
+    }
+}
+
+/// Iterator from `a` (included) to `b` (included).
+///
+/// ```
+/// # use adventofcode::helpers::range;
+/// let mut values = range(1, 3);
+/// assert_eq!(values.next(), Some(1));
+/// assert_eq!(values.next(), Some(2));
+/// assert_eq!(values.next(), Some(3));
+/// assert_eq!(values.next(), None);
+///
+/// let mut values = range(3, 1);
+/// assert_eq!(values.next(), Some(3));
+/// assert_eq!(values.next(), Some(2));
+/// assert_eq!(values.next(), Some(1));
+/// assert_eq!(values.next(), None);
+/// ```
+pub fn range<'a, T: 'a + PartialOrd + Step>(a: T, b: T) -> Box<dyn Iterator<Item = T> + 'a> {
+    if a < b {
+        Box::new(a..=b)
+    } else {
+        Box::new((b..=a).rev())
     }
 }

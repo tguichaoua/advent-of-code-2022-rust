@@ -10,6 +10,7 @@ mod parser {
     use std::str::FromStr;
 
     use super::Item;
+    use adventofcode::helpers;
     use nom::{
         branch::alt,
         bytes::complete::tag,
@@ -25,10 +26,7 @@ mod parser {
     }
 
     pub fn item_number(input: &str) -> IResult<&str, u32> {
-        map_res(
-            recognize(many1(terminated(one_of("0123456789"), many0(char('_'))))),
-            FromStr::from_str,
-        )(input)
+        helpers::parser::decimal_value(input)
     }
 
     pub fn item_list(input: &str) -> IResult<&str, Box<[Item]>> {
