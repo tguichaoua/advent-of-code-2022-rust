@@ -7,19 +7,13 @@ pub enum Item {
 }
 
 mod parser {
-    use std::str::FromStr;
-
-    use super::Item;
     use adventofcode::helpers;
     use nom::{
-        branch::alt,
-        bytes::complete::tag,
-        character::complete::{char, one_of},
-        combinator::{map, map_res, recognize},
-        multi::{many0, many1, separated_list0},
-        sequence::{delimited, terminated},
-        IResult,
+        branch::alt, bytes::complete::tag, combinator::map, multi::separated_list0,
+        sequence::delimited, IResult,
     };
+
+    use super::Item;
 
     pub fn item(input: &str) -> IResult<&str, Item> {
         alt((map(item_list, Item::List), map(item_number, Item::Number)))(input)
