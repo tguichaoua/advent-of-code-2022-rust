@@ -1,13 +1,17 @@
 use nom::{
-    character::complete::one_of,
+    character::complete::{char, one_of},
     combinator::{map_res, recognize},
-    multi::many1,
+    multi::{many1, many_m_n},
+    sequence::preceded,
     IResult,
 };
 use num::Num;
 
 pub fn decimal(input: &str) -> IResult<&str, &str> {
-    recognize(many1(one_of("0123456789")))(input)
+    recognize(preceded(
+        many_m_n(0, 1, char('-')),
+        many1(one_of("0123456789")),
+    ))(input)
 }
 
 pub fn decimal_value<N: Num>(input: &str) -> IResult<&str, N> {
