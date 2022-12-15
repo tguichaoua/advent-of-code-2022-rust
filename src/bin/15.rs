@@ -1,7 +1,4 @@
-#![feature(generators)]
-#![feature(iter_from_generator)]
-
-use std::{iter::from_generator, ops::Add};
+use std::ops::Add;
 
 use adventofcode::helpers::parser::decimal_value;
 use itertools::{Itertools, MinMaxResult};
@@ -72,11 +69,11 @@ pub fn part_one(input: &str, target_line: i32) -> Option<u32> {
                  position,
                  nearest_beacon,
              }| {
-                std::iter::from_generator(|| {
-                    let d = position.distance_to(nearest_beacon);
-                    yield position.x.checked_sub_unsigned(d).unwrap();
-                    yield position.x.checked_add_unsigned(d).unwrap();
-                })
+                let d = position.distance_to(nearest_beacon);
+                [
+                    position.x.checked_sub_unsigned(d).unwrap(),
+                    position.x.checked_add_unsigned(d).unwrap()
+                ]
             },
         )
         .minmax() else{ panic!("Expected two values") };
@@ -125,45 +122,47 @@ pub fn part_one(input: &str, target_line: i32) -> Option<u32> {
 
 pub fn part_two(input: &str, max_coordinate: i32) -> Option<i64> {
     fn manhattan_circle(radius: u32) -> impl Iterator<Item = Pos> {
-        from_generator(move || {
-            yield Pos {
+        [
+            Pos {
                 x: -(radius as i32),
                 y: 0,
-            };
-            yield Pos {
+            },
+            Pos {
                 x: radius as i32,
                 y: 0,
-            };
-            yield Pos {
+            },
+            Pos {
                 x: 0,
                 y: -(radius as i32),
-            };
-            yield Pos {
+            },
+            Pos {
                 x: 0,
                 y: radius as i32,
-            };
+            },
+        ]
+        .into_iter()
+        .chain((1..radius).flat_map(move |x| {
+            let y = radius - x;
 
-            for x in 1..radius {
-                let y = radius - x;
-
-                yield Pos {
+            [
+                Pos {
                     x: x as i32,
                     y: y as i32,
-                };
-                yield Pos {
+                },
+                Pos {
                     x: x as i32,
                     y: -(y as i32),
-                };
-                yield Pos {
+                },
+                Pos {
                     x: -(x as i32),
                     y: y as i32,
-                };
-                yield Pos {
+                },
+                Pos {
                     x: -(x as i32),
                     y: -(y as i32),
-                };
-            }
-        })
+                },
+            ]
+        }))
     }
 
     let sensors = parse_input(input)
