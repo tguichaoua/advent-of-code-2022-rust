@@ -1,7 +1,7 @@
 mod grid;
 pub mod parser;
 
-use std::iter::Step;
+use std::{iter::Step, ops::Add};
 
 pub use grid::*;
 
@@ -74,5 +74,26 @@ pub fn range<'a, T: 'a + PartialOrd + Step>(a: T, b: T) -> Box<dyn Iterator<Item
         Box::new(a..=b)
     } else {
         Box::new((b..=a).rev())
+    }
+}
+
+pub trait IteratorExt: Iterator {
+    fn sum_count<S>(self) -> (S, usize)
+    where
+        S: Default + Add<Self::Item, Output = S>;
+}
+
+impl<I: Iterator> IteratorExt for I {
+    fn sum_count<S>(self) -> (S, usize)
+    where
+        S: Default + Add<Self::Item, Output = S>,
+    {
+        let mut sum = S::default();
+        let mut count = 0;
+        for x in self {
+            sum = sum + x;
+            count += 1;
+        }
+        (sum, count)
     }
 }
